@@ -85,7 +85,7 @@ Camera access needs a user gesture on some browsers and always needs https or lo
 
 ## Video
 
-Pass the URL, or a `<video>` you control. It plays muted and looped. The subject is re-cut every other frame at 128�, so a plain-backdrop clip turns like a still. Cross-origin video needs CORS headers, otherwise the subject analysis falls back to full frame.
+Pass the URL, or a `<video>` you control. It plays muted and looped. The subject is re-cut every other frame at 128², so a plain-backdrop clip turns like a still. Cross-origin video needs CORS headers, otherwise the subject analysis falls back to full frame.
 
 ## Driving it from another renderer
 

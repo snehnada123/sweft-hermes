@@ -62,13 +62,13 @@ The engine is MIT licensed. When copying `assets/weft.ts` into a project, copy `
 **Motion** (`motion`, `turn`):
 - `pointer: true` lets the cursor steer: x turns, y tilts. The corners are clamped onto an ellipse, so a diagonal never stacks full yaw and full pitch.
 - `idle` decides what happens when the pointer rests. `'poses'` drifts through `motion.poses`, `'center'` eases back to the front, and `'hold'` stays put.
-- Keep `turn.yaw` at 34� or less and `turn.pitch` at 20� or less for a flat picture. Full-frame pictures want about 10 to 15� yaw.
+- Keep `turn.yaw` at 34° or less and `turn.pitch` at 20° or less for a flat picture. Full-frame pictures want about 10 to 15° yaw.
 - Use `turn.enabled: false` for a flat mosaic whose only motion is the transition.
 
 **Transition**:
 - Turning breaks the bars up automatically. Call `weft.kick(amount)` for anything else, such as a click, scroll velocity, a slide change or a beat.
 - `transition.intro` resolves from coarse on load, and `transition.onSource` does the same when the source changes.
-- Keep `rows.coarse / rows.fine` around 4 to 6x.
+- Keep `rows.coarse / rows.fine` around 4 to 6×.
 
 ## API at a glance
 

@@ -420,7 +420,7 @@ function dropSpecks(mask: Float32Array, N: number, minArea: number) {
   }
 }
 
-// Subject mask, depth and turn centre from the source, at NxN in source uv.
+// Subject mask, depth and turn centre from the source, at N×N in source uv.
 function analyse(source: Media, cfg: WeftConfig, N: number, g: CanvasRenderingContext2D): Analysis {
   const out: Analysis = { size: N, data: new Uint8Array(N * N * 2), pivot: [0.5, 0.5], carry: [0, 0, 0, 0], center: [0.5, 0.5], mode: 'none' };
   if (g.canvas.width !== N || g.canvas.height !== N) {

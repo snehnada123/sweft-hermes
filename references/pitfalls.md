@@ -26,7 +26,7 @@ These are lessons from building this effect. Each one cost an iteration.
 
 **No time to settle between moves in a video.** Twenty quick flicks back to back never showed a sharp frame. Ten flicks, each with a rest of about 1 s, show both states.
 
-**Reading pixels from a canvas you didn't size.** A fresh `<canvas>` is 300x150. Drawing a 256� analysis into it silently cropped the mask to the top 59%.
+**Reading pixels from a canvas you didn't size.** A fresh `<canvas>` is 300×150. Drawing a 256² analysis into it silently cropped the mask to the top 59%.
 
 **Cross-origin sources.** Pixels can't be read from cross-origin sources without CORS, so subject analysis falls back to full frame. Serve sources from the same origin, or with `Access-Control-Allow-Origin`.
 
