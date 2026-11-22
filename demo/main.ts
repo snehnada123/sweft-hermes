@@ -6,7 +6,7 @@ const q = new URLSearchParams(location.search);
 const stage = document.querySelector<HTMLElement>('.stage')!;
 const canvas = document.querySelector('canvas')!;
 const names = Object.keys(PALETTES) as PaletteName[];
-const fallback = `${import.meta.env.BASE_URL}portrait.svg`;
+const fallback = `${import.meta.env.BASE_URL}portrait.svg?v=4`;
 let palette = (q.get('palette') as PaletteName) || 'ember';
 let direction: 'rows' | 'columns' = q.get('dir') === 'columns' ? 'columns' : 'rows';
 
