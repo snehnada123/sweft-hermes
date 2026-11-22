@@ -1,13 +1,13 @@
 # Recipes
 
-All recipes assume `import { createWeft } from './weft'`, and a canvas styled to fill its box (`width:100%; height:100%; display:block`).
+All recipes assume `import { createSweft } from './sweft'`, and a canvas styled to fill its box (`width:100%; height:100%; display:block`).
 
 ## Portrait that turns toward the cursor
 
 This is the demo. The subject is cut from its backdrop, the cursor steers it, and it drifts through poses when idle.
 
 ```js
-createWeft(canvas, {
+createSweft(canvas, {
   source: 'me.png',
   palette: 'ember',
   onSource: (w, h) => (stage.style.aspectRatio = `${w} / ${h}`),
@@ -19,7 +19,7 @@ A transparent PNG gives the cleanest cut. If the photo has a busy background, cu
 ## Hero background, full frame
 
 ```js
-createWeft(canvas, {
+createSweft(canvas, {
   source: 'landscape.jpg',
   subject: { mode: 'none' },
   turn: { yaw: 10, pitch: 6 },
@@ -36,7 +36,7 @@ Use one mosaic per card, flat, with the transition only:
 
 ```js
 for (const card of document.querySelectorAll('.card')) {
-  const m = createWeft(card.querySelector('canvas'), {
+  const m = createSweft(card.querySelector('canvas'), {
     source: card.dataset.src,
     turn: { enabled: false },
     motion: { pointer: false, idle: 'center' },
@@ -52,7 +52,7 @@ Browsers cap live WebGL contexts at about 16. For larger grids, create mosaics l
 ## Slideshow: break up between images
 
 ```js
-const m = createWeft(canvas, { source: slides[0], turn: { enabled: false }, motion: { pointer: false, idle: 'center' } });
+const m = createSweft(canvas, { source: slides[0], turn: { enabled: false }, motion: { pointer: false, idle: 'center' } });
 let i = 0;
 setInterval(() => m.setSource(slides[++i % slides.length]), 4000); // onSource kick does the transition
 ```
@@ -78,7 +78,7 @@ addEventListener('scroll', () => {
 ## Webcam mirror
 
 ```js
-const m = createWeft(canvas, { source: 'camera', subject: { mode: 'none' }, turn: { yaw: 12, pitch: 8 } });
+const m = createSweft(canvas, { source: 'camera', subject: { mode: 'none' }, turn: { yaw: 12, pitch: 8 } });
 ```
 
 Camera access needs a user gesture on some browsers and always needs https or localhost, so start it from a button. With a plain wall behind the person, `subject: { mode: 'backdrop' }` cuts them out live.
@@ -94,11 +94,11 @@ Pass any `<canvas>` as the source, such as a three.js render, a p5 sketch or a c
 ## React
 
 ```jsx
-function Weft({ src, ...options }) {
+function Sweft({ src, ...options }) {
   const ref = useRef(null);
   const mosaic = useRef(null);
   useEffect(() => {
-    mosaic.current = createWeft(ref.current, { ...options, source: src, urlParams: false });
+    mosaic.current = createSweft(ref.current, { ...options, source: src, urlParams: false });
     return () => mosaic.current.destroy();
   }, []);
   useEffect(() => { mosaic.current?.setSource(src); }, [src]);

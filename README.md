@@ -1,27 +1,27 @@
-# Weft for Hermes Agent
+# Sweft for Hermes Agent
 
-A Hermes skill adaptation of [Weft](https://github.com/JDhruv14/weft), a TypeScript and WebGL2 bar-mosaic renderer. Use `/weft` in Hermes to turn an image, video, webcam feed or canvas into interactive rows of coloured bars.
+A Hermes skill for turning an image, video, webcam feed or canvas into an interactive TypeScript and WebGL2 bar mosaic. Use `/sweft` in Hermes to add the effect to a web project.
 
-**[Open the website demo](https://snehnada123.github.io/weft-hermes/)**. It preserves the original page's layout and controls and uses a different default portrait. Drop your own image or video onto the page to change the source.
+**[Open the website demo](https://snehnada123.github.io/sweft-hermes/)**. It preserves the original page's layout and controls and uses a different default portrait. Drop your own image or video onto the page to change the source.
 
-The renderer in `assets/weft.ts` and the option, recipe and pitfalls references are copied from [upstream commit `1ad5e852`](https://github.com/JDhruv14/weft/tree/1ad5e852adada7607ccc83b5edb9c9ca235dfd30). The skill instructions are adapted for Hermes, and the bundled demo uses a generated portrait so it can run without upstream media. The original MIT copyright and permission notice is retained in [LICENSE](LICENSE) and [assets/LICENSE](assets/LICENSE).
+The renderer and reference material are adapted from MIT-licensed source. The original copyright and permission notice is retained in [LICENSE](LICENSE) and [assets/LICENSE](assets/LICENSE). The bundled demo uses a generated portrait so it runs without external media.
 
 ## Install in Hermes
 
 Install from the direct skill file URL so Hermes includes the referenced assets and documentation:
 
 ```powershell
-hermes skills install https://raw.githubusercontent.com/snehnada123/weft-hermes/main/SKILL.md
+hermes skills install https://raw.githubusercontent.com/snehnada123/sweft-hermes/main/SKILL.md
 hermes skills list
 ```
 
 In Hermes chat:
 
 ```text
-/weft Create an interactive portrait from my image in my website
+/sweft Create an interactive portrait from my image in my website
 ```
 
-Hermes loads skill files on demand. To manually install from this folder, copy `SKILL.md`, `references/` and `assets/` into `~/.hermes/skills/weft/`, then start a new Hermes session. Keep the repository's `LICENSE` in any redistributed copy. The skill names every asset and reference in its Markdown so direct GitHub skill installation can include them.
+Hermes loads skill files on demand. To manually install from this folder, copy `SKILL.md`, `references/` and `assets/` into `~/.hermes/skills/sweft/`, then start a new Hermes session. Keep the repository's `LICENSE` in any redistributed copy. The skill names every asset and reference in its Markdown so direct GitHub skill installation can include them.
 
 ## Try the demo
 
@@ -46,4 +46,4 @@ Open the Vite address, move the pointer over the portrait, try the palette and d
 
 ## Hackathon use
 
-Weft is the renderer. If your submission uses it, keep its MIT notice with the code, explain the original interaction or product that you built around it, and identify the renderer as an existing component. A renamed copy of the demo is not an original hackathon project.
+If your submission uses the renderer, keep its MIT notice with the code and clearly explain the original interaction or product you built around it. A renamed copy of the demo is not an original hackathon project.

@@ -22,7 +22,7 @@ These are lessons from building this effect. Each one cost an iteration.
 
 **Recording in real time.** Screen capture drops frames, and the break-up lasts only a few frames. Step a simulated clock per frame instead (`advance()`).
 
-**UI left visible in the recording.** A CSS `display: grid` rule beats the `hidden` attribute. Hide recording-only elements with an inline `display: none !important`. The engine does this for `[data-weft-ui]` in frozen stills.
+**UI left visible in the recording.** A CSS `display: grid` rule beats the `hidden` attribute. Hide recording-only elements with an inline `display: none !important`. The engine does this for `[data-sweft-ui]` in frozen stills.
 
 **No time to settle between moves in a video.** Twenty quick flicks back to back never showed a sharp frame. Ten flicks, each with a rest of about 1 s, show both states.
 

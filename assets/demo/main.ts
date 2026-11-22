@@ -1,4 +1,4 @@
-import { createWeft, enableDrop, PALETTES, type PaletteName } from '../weft';
+import { createSweft, enableDrop, PALETTES, type PaletteName } from '../sweft';
 
 const params = new URLSearchParams(location.search);
 const stage = document.querySelector<HTMLElement>('.stage')!;
@@ -55,7 +55,7 @@ function paint() {
 }
 paint();
 
-const weft = createWeft(canvas, {
+const sweft = createSweft(canvas, {
   source: originalSource,
   palette,
   direction,
@@ -67,22 +67,22 @@ const weft = createWeft(canvas, {
     stage.style.height = `min(100svh, ${(100 * h) / w}vw)`;
   },
 });
-enableDrop(weft);
+enableDrop(sweft);
 
 document.querySelector<HTMLButtonElement>('.palette')!.onclick = () => {
   palette = palettes[(palettes.indexOf(palette) + 1) % palettes.length];
   paint();
-  weft.set({ palette }).kick(0.8);
+  sweft.set({ palette }).kick(0.8);
 };
 document.querySelector<HTMLButtonElement>('.direction')!.onclick = () => {
   direction = direction === 'rows' ? 'columns' : 'rows';
-  weft.set({ direction }).kick(0.8);
+  sweft.set({ direction }).kick(0.8);
 };
 const camera = document.querySelector<HTMLButtonElement>('.cam')!;
 camera.onclick = async () => {
   const active = camera.getAttribute('aria-pressed') === 'true';
   try {
-    await weft.setSource(active ? originalSource : 'camera');
+    await sweft.setSource(active ? originalSource : 'camera');
     camera.setAttribute('aria-pressed', String(!active));
   } catch (error) {
     console.error('Camera unavailable', error);

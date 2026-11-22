@@ -1,4 +1,4 @@
-import { createWeft, enableDrop, PALETTES, type PaletteName } from '../src/weft';
+import { createSweft, enableDrop, PALETTES, type PaletteName } from '../src/sweft';
 
 // URL params: ?src=<url> &palette=<name> &dir=rows|columns &subject=auto|backdrop|alpha|none
 // &idle=poses|center|hold &turn=0, plus the library's ?freeze=<t>&yaw=&pitch=&break=
@@ -19,7 +19,7 @@ function paint() {
 }
 paint();
 
-const weft = createWeft(canvas, {
+const sweft = createSweft(canvas, {
   source: q.get('src') || fallback,
   palette,
   direction,
@@ -35,23 +35,23 @@ const weft = createWeft(canvas, {
     stage.style.height = `min(100svh, ${(100 * h) / w}vw)`;
   },
 });
-enableDrop(weft);
-if (q.has('debug')) Object.assign(window, { weft });
+enableDrop(sweft);
+if (q.has('debug')) Object.assign(window, { sweft });
 
 document.querySelector<HTMLButtonElement>('.palette')!.onclick = () => {
   palette = names[(names.indexOf(palette) + 1) % names.length];
   paint();
-  weft.set({ palette }).kick(0.8);
+  sweft.set({ palette }).kick(0.8);
 };
 document.querySelector<HTMLButtonElement>('.direction')!.onclick = () => {
   direction = direction === 'rows' ? 'columns' : 'rows';
-  weft.set({ direction }).kick(0.8);
+  sweft.set({ direction }).kick(0.8);
 };
 const cam = document.querySelector<HTMLButtonElement>('.cam')!;
 cam.onclick = async () => {
   const on = cam.getAttribute('aria-pressed') === 'true';
   try {
-    await weft.setSource(on ? q.get('src') || fallback : 'camera');
+    await sweft.setSource(on ? q.get('src') || fallback : 'camera');
     cam.setAttribute('aria-pressed', String(!on));
   } catch (e) {
     console.error(e);

@@ -1,4 +1,4 @@
-// Weft: rebuild any image, video, canvas or camera feed from rows of coloured
+// Sweft: rebuild any image, video, canvas or camera feed from rows of coloured
 // bars, like threads across a loom or a risograph print. When it moves, the
 // rows go coarse and break up; when it settles, they resolve back to fine
 // detail. A subject cut from its backdrop can turn in 3D (yaw and pitch) by
@@ -14,7 +14,7 @@ export type Source = string | { video: string } | HTMLImageElement | HTMLVideoEl
 export type DepthMap = HTMLImageElement | HTMLCanvasElement | ImageBitmap;
 export interface Pose { yaw: number; pitch?: number; hold: number }
 
-export interface WeftConfig {
+export interface SweftConfig {
   /** Preset name, an array of up to 16 hex colours, or `{ ink, paper }`. */
   palette: PaletteName | readonly string[] | Palette;
   /** Overrides the preset's paper (ground) colour. */
@@ -108,17 +108,17 @@ export interface WeftConfig {
 }
 
 type DeepPartial<T> = { [K in keyof T]?: T[K] extends readonly unknown[] | Function | HTMLElement | null ? T[K] : T[K] extends object ? DeepPartial<T[K]> : T[K] };
-export type WeftOptions = DeepPartial<WeftConfig> & { source?: Source };
+export type SweftOptions = DeepPartial<SweftConfig> & { source?: Source };
 
-export interface Weft {
+export interface Sweft {
   /** Replace the source: an element, URL, File/Blob, or `'camera'`. */
-  setSource(input: Source): Promise<Weft>;
+  setSource(input: Source): Promise<Sweft>;
   /** Change options live (deep-merged). */
-  set(options: WeftOptions): Weft;
+  set(options: SweftOptions): Sweft;
   /** Break the bars up now (0..1); they resolve on their own. */
-  kick(amount?: number): Weft;
+  kick(amount?: number): Sweft;
   /** Steer to a pose in degrees; `pose(null)` hands back to pointer/idle motion. */
-  pose(yaw: number | null, pitch?: number): Weft;
+  pose(yaw: number | null, pitch?: number): Sweft;
   /** Feed a pointer position (0..1 over the canvas) from your own input. */
   pointer(x: number, y: number, now?: number): void;
   /** Step a simulated clock by `dt` seconds, optionally moving the pointer. */
@@ -127,7 +127,7 @@ export interface Weft {
   render(now?: number): boolean;
   ready(): boolean;
   /** Resolves once the initial `source` has loaded. */
-  loaded: Promise<Weft>;
+  loaded: Promise<Sweft>;
   readonly state: { yaw: number; pitch: number; breakup: number; subject: string };
   readonly canvas: HTMLCanvasElement;
   destroy(): void;
@@ -155,7 +155,7 @@ export const PALETTES: Record<PaletteName, Palette> = {
   source: { ink: 'source', paper: '#f4ecdc' },
 };
 
-const DEFAULTS: WeftConfig = {
+const DEFAULTS: SweftConfig = {
   palette: 'ember',
   paper: null,
   widenOn: 'auto',
@@ -353,12 +353,12 @@ function merge<T>(base: T, over: unknown): T {
 }
 const ease = (x: number) => x * x * x * (x * (x * 6 - 15) + 10);
 
-function resolvePalette(o: WeftConfig) {
+function resolvePalette(o: SweftConfig) {
   let ink: readonly string[] | 'source';
   let paper: string | undefined;
   if (typeof o.palette === 'string') {
     const p = PALETTES[o.palette as PaletteName];
-    if (!p) throw Error(`weft: unknown palette "${o.palette}"`);
+    if (!p) throw Error(`sweft: unknown palette "${o.palette}"`);
     ({ ink, paper } = p);
   } else if (Array.isArray(o.palette)) ink = o.palette as readonly string[];
   else ({ ink, paper } = o.palette as Palette);
@@ -421,7 +421,7 @@ function dropSpecks(mask: Float32Array, N: number, minArea: number) {
 }
 
 // Subject mask, depth and turn centre from the source, at N×N in source uv.
-function analyse(source: Media, cfg: WeftConfig, N: number, g: CanvasRenderingContext2D): Analysis {
+function analyse(source: Media, cfg: SweftConfig, N: number, g: CanvasRenderingContext2D): Analysis {
   const out: Analysis = { size: N, data: new Uint8Array(N * N * 2), pivot: [0.5, 0.5], carry: [0, 0, 0, 0], center: [0.5, 0.5], mode: 'none' };
   if (g.canvas.width !== N || g.canvas.height !== N) {
     g.canvas.width = N;
@@ -577,7 +577,7 @@ async function toSource(input: Source): Promise<Loaded> {
       Object.assign(v, { muted: true, loop: true, playsInline: true, crossOrigin: 'anonymous', src: url });
       await new Promise<void>((res, rej) => {
         v.onloadeddata = () => res();
-        v.onerror = () => rej(Error(`weft: can't load ${url}`));
+        v.onerror = () => rej(Error(`sweft: can't load ${url}`));
       });
       v.play().catch(() => {});
       return { el: v };
@@ -596,11 +596,11 @@ async function toSource(input: Source): Promise<Loaded> {
 
 // --- the component --------------------------------------------------------------
 
-/** Create a Weft on a canvas. The canvas fills its CSS box; the page owns layout. */
-export function createWeft(canvas: HTMLCanvasElement, options: WeftOptions = {}): Weft {
+/** Create a Sweft on a canvas. The canvas fills its CSS box; the page owns layout. */
+export function createSweft(canvas: HTMLCanvasElement, options: SweftOptions = {}): Sweft {
   let o = merge(DEFAULTS, options);
   const ctx = canvas.getContext('webgl2', { antialias: false, alpha: false, preserveDrawingBuffer: true });
-  if (!ctx) throw Error('weft: WebGL2 unavailable');
+  if (!ctx) throw Error('sweft: WebGL2 unavailable');
   const gl = ctx;
   const prog = gl.createProgram()!;
   for (const [type, text] of [[gl.VERTEX_SHADER, VERT], [gl.FRAGMENT_SHADER, FRAG]] as const) {
@@ -875,7 +875,7 @@ export function createWeft(canvas: HTMLCanvasElement, options: WeftOptions = {})
     else last = now;
   };
 
-  async function setSource(input: Source): Promise<Weft> {
+  async function setSource(input: Source): Promise<Sweft> {
     const next = await toSource(input);
     if (src?.stream && src.stream !== next.stream) for (const tr of src.stream.getTracks()) tr.stop();
     src = next;
@@ -890,7 +890,7 @@ export function createWeft(canvas: HTMLCanvasElement, options: WeftOptions = {})
     return api;
   }
 
-  const api: Weft = {
+  const api: Sweft = {
     setSource,
     set(next) {
       o = merge(o, next);
@@ -916,7 +916,7 @@ export function createWeft(canvas: HTMLCanvasElement, options: WeftOptions = {})
       return tick(now);
     },
     ready: () => !!src && readyOf(src.el) && !!info,
-    loaded: Promise.resolve(null as unknown as Weft),
+    loaded: Promise.resolve(null as unknown as Sweft),
     state,
     canvas,
     destroy() {
@@ -930,20 +930,20 @@ export function createWeft(canvas: HTMLCanvasElement, options: WeftOptions = {})
     },
   };
 
-  if (frozen !== null) for (const el of document.querySelectorAll<HTMLElement>('[data-weft-ui]')) el.style.setProperty('display', 'none', 'important');
+  if (frozen !== null) for (const el of document.querySelectorAll<HTMLElement>('[data-sweft-ui]')) el.style.setProperty('display', 'none', 'important');
   if (o.autoplay) raf = requestAnimationFrame(loop);
-  const initial = (options as WeftOptions).source;
+  const initial = (options as SweftOptions).source;
   api.loaded = initial ? setSource(initial) : Promise.resolve(api);
   return api;
 }
 
 /** Let people drop an image or video file anywhere on `target` to use it. */
-export function enableDrop(weft: Weft, target: EventTarget = window): () => void {
+export function enableDrop(sweft: Sweft, target: EventTarget = window): () => void {
   const over = (e: Event) => e.preventDefault();
   const drop = (e: Event) => {
     e.preventDefault();
     const file = (e as DragEvent).dataTransfer?.files?.[0];
-    if (file && /^(image|video)\//.test(file.type)) weft.setSource(file);
+    if (file && /^(image|video)\//.test(file.type)) sweft.setSource(file);
   };
   target.addEventListener('dragover', over);
   target.addEventListener('drop', drop);

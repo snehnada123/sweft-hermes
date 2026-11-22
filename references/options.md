@@ -1,6 +1,6 @@
 # Options
 
-Everything is optional and typed (`WeftOptions`). Nested groups are deep-merged with the defaults, both in `createWeft(canvas, options)` and in `weft.set(partial)`.
+Everything is optional and typed (`SweftOptions`). Nested groups are deep-merged with the defaults, both in `createSweft(canvas, options)` and in `sweft.set(partial)`.
 
 ## Look
 
@@ -87,7 +87,7 @@ Everything is optional and typed (`WeftOptions`). Nested groups are deep-merged 
 
 | option | default | notes |
 |---|---|---|
-| `urlParams` | `true` | Honours `?freeze=t&yaw=&pitch=&break=` for stills (and hides `[data-weft-ui]` then). Turn it off when embedding several mosaics on a page you don't control. |
+| `urlParams` | `true` | Honours `?freeze=t&yaw=&pitch=&break=` for stills (and hides `[data-sweft-ui]` then). Turn it off when embedding several mosaics on a page you don't control. |
 | `autoplay` | `true` | Runs its own `requestAnimationFrame` loop, which pauses offscreen and in hidden tabs. When false, call `render()` yourself. |
 | `onSource` | none | Called as `(width, height)` whenever a new source's size is known. Use it to size the canvas box. |
 
