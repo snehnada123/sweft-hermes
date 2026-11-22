@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weft</title>
+<style>
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--paper,#f4ecdc);overflow:hidden;transition:background .4s}
+.stage{position:relative;height:min(100svh,133.333vw);aspect-ratio:3/4}
+canvas{width:100%;height:100%;display:block;touch-action:none}
+.tools{position:fixed;right:14px;bottom:14px;display:flex;gap:4px}
+.tools button{width:38px;height:38px;border:0;border-radius:50%;background:transparent;color:var(--ink,#1c1a27);
+  display:grid;place-items:center;cursor:pointer;opacity:.35;transition:opacity .2s}
+.tools button:hover,.tools button:focus-visible,.tools button[aria-pressed="true"]{opacity:.9}
+.tools button:focus-visible{outline:1.5px solid currentColor;outline-offset:2px}
+.tools svg{width:20px;height:20px}
+</style>
+</head>
+<body>
+<div class="stage"><canvas aria-label="The picture rebuilt from coloured bars"></canvas></div>
+<div class="tools" data-weft-ui>
+  <button class="palette" type="button" aria-label="Next palette" title="Next palette">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="8.5" cy="10" r="1.2" fill="currentColor"/><circle cx="12" cy="7.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="10" r="1.2" fill="currentColor"/><path d="M12 20.5c-1.5-1.5-1.2-4 1.2-4h2.3"/></svg>
+  </button>
+  <button class="direction" type="button" aria-label="Rotate bars" title="Rotate bars">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"/></svg>
+  </button>
+  <button class="cam" type="button" aria-label="Use camera" title="Use camera" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.3l1.4-2h7.6l1.4 2h2.3A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="12.8" r="3.6"/></svg>
+  </button>
+</div>
+<script type="module" src="./main.ts"></script>
+</body>
+</html>
