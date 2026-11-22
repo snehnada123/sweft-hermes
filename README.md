@@ -6,10 +6,10 @@ The renderer in `assets/weft.ts` and the option, recipe and pitfalls references 
 
 ## Install in Hermes
 
-Once this repository is published on GitHub:
+Install from the direct skill file URL so Hermes includes the referenced assets and documentation:
 
 ```powershell
-hermes skills install snehnada123/weft-hermes
+hermes skills install https://raw.githubusercontent.com/snehnada123/weft-hermes/main/SKILL.md
 hermes skills list
 ```
 
