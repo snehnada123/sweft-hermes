@@ -23,7 +23,7 @@ const weft = createWeft(canvas, {
   source: q.get('src') || fallback,
   palette,
   direction,
-  subject: { mode: (q.get('subject') as 'auto') || 'auto' },
+  subject: { mode: (q.get('subject') as 'auto' | 'none') || (q.get('src') ? 'auto' : 'none') },
   turn: { enabled: q.get('turn') !== '0' },
   motion: { idle: (q.get('idle') as 'poses') || 'poses' },
   onSource(w, h) {
