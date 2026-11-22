@@ -2,6 +2,8 @@
 
 A Hermes skill adaptation of [Weft](https://github.com/JDhruv14/weft), the TypeScript and WebGL2 bar-mosaic renderer by JDhruv14. Use `/weft` in Hermes to turn an image, video, webcam feed or canvas into interactive rows of coloured bars.
 
+**[Open the website demo](https://snehnada123.github.io/weft-hermes/)**. It preserves the original page's layout and controls and uses a different default portrait. Drop your own image or video onto the page to change the source.
+
 The renderer in `assets/weft.ts` and the option, recipe and pitfalls references are copied from [upstream commit `1ad5e852`](https://github.com/JDhruv14/weft/tree/1ad5e852adada7607ccc83b5edb9c9ca235dfd30). The skill instructions are adapted for Hermes, and the bundled demo uses a generated portrait so it can run without upstream media. The original MIT copyright and permission notice is retained in [LICENSE](LICENSE) and [assets/LICENSE](assets/LICENSE).
 
 ## Install in Hermes
@@ -22,6 +24,16 @@ In Hermes chat:
 Hermes loads skill files on demand. To manually install from this folder, copy `SKILL.md`, `references/` and `assets/` into `~/.hermes/skills/weft/`, then start a new Hermes session. Keep the repository's `LICENSE` in any redistributed copy. The skill names every asset and reference in its Markdown so direct GitHub skill installation can include them.
 
 ## Try the demo
+
+The website source is in `demo/`, with the renderer in `src/`. Run the published page locally with:
+
+```powershell
+npm ci
+npm run typecheck
+npm run dev
+```
+
+The skill also contains a self-contained demo in `assets/`:
 
 ```powershell
 cd assets

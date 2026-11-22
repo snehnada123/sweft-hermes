@@ -1,0 +1,20 @@
+{
+  "name": "weft",
+  "version": "1.0.0",
+  "description": "Reweave any image, video or webcam into rows of coloured bars that break apart as it moves and turn in 3D toward the cursor. WebGL2, TypeScript, no runtime dependencies.",
+  "type": "module",
+  "license": "MIT",
+  "author": "JDhruv14",
+  "repository": "github:JDhruv14/weft",
+  "keywords": ["webgl2", "shader", "typescript", "risograph", "scanline", "dither", "parallax", "claude-skill"],
+  "scripts": {
+    "dev": "vite demo",
+    "build": "tsc --noEmit && vite build demo --outDir ../dist --emptyOutDir",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
+  }
+}
