@@ -1,6 +1,6 @@
 # Weft for Hermes Agent
 
-A Hermes skill adaptation of [Weft](https://github.com/JDhruv14/weft), the TypeScript and WebGL2 bar-mosaic renderer by JDhruv14. Use `/weft` in Hermes to turn an image, video, webcam feed or canvas into interactive rows of coloured bars.
+A Hermes skill adaptation of [Weft](https://github.com/JDhruv14/weft), a TypeScript and WebGL2 bar-mosaic renderer. Use `/weft` in Hermes to turn an image, video, webcam feed or canvas into interactive rows of coloured bars.
 
 **[Open the website demo](https://snehnada123.github.io/weft-hermes/)**. It preserves the original page's layout and controls and uses a different default portrait. Drop your own image or video onto the page to change the source.
 

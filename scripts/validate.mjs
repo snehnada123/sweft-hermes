@@ -23,12 +23,13 @@ for (const path of required) {
   if (!skill.includes(`(${path})`)) throw new Error(`SKILL.md does not reference ${path}`);
 }
 if (!skill.startsWith('---\nname: weft\n')) throw new Error('Invalid Hermes frontmatter');
-if (!read('assets/LICENSE').includes('Copyright (c) 2026 JDhruv14')) throw new Error('Missing upstream copyright');
 if (read('LICENSE') !== read('assets/LICENSE')) throw new Error('License copies differ');
+const blobHash = (content) => createHash('sha1').update(`blob ${Buffer.byteLength(content)}\0`).update(content).digest('hex');
+if (blobHash(read('assets/LICENSE')) !== 'ab4bb8daa90d028fb9a9f0a7a46e0a3475840b0d') throw new Error('Upstream MIT notice changed');
 for (const path of ['assets/weft.ts', 'assets/demo/main.ts']) {
   stripTypeScriptTypes(read(path), { mode: 'strip' });
 }
-const hash = createHash('sha1').update(`blob ${Buffer.byteLength(read('assets/weft.ts'))}\0`).update(read('assets/weft.ts')).digest('hex');
+const hash = blobHash(read('assets/weft.ts'));
 if (hash !== 'b6d09d848b3e8ee8690d3bbd0ac571e467aa9a88') {
   throw new Error('Renderer differs from upstream pinned commit');
 }
