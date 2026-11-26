@@ -44,6 +44,4 @@ npm run dev
 
 Open the Vite address, move the pointer over the portrait, try the palette and direction buttons, or drop your own image or video. The camera button requires browser permission and localhost or HTTPS.
 
-## Hackathon use
 
-If your submission uses the renderer, keep its MIT notice with the code and clearly explain the original interaction or product you built around it. A renamed copy of the demo is not an original hackathon project.
